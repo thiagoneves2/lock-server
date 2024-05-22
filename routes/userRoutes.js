@@ -8,6 +8,11 @@ router.post('/usuarios', async (req, res) => {
   return res.send({ user });
 });
 
+router.get('/', async (req, res) => {
+  console.log("Rota em funcionamento ");
+  return res.send({msg:"Funcionando"});
+});
+
 // Procurar todos os usuários
 router.get('/usuarios', async (req, res) => {
   const users = await User.find();
