@@ -25,7 +25,7 @@ mongoose.connect(`mongodb+srv://admin:${passwd}@lockdb.ib4sr5m.mongodb.net/?retr
 
 
 app.use('/users', userRoutes);
-app.use('/trancas', trancaRoutes); // Adicione esta linha
+app.use('/locks', trancaRoutes); // Adicione esta linha
 //app.use('/mqtt', mqttRoutes); // Adicione esta linha
 
 // Inicia o servidor

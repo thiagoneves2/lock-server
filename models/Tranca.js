@@ -2,8 +2,11 @@ const mongoose = require('mongoose');
 
 const TrancaSchema = new mongoose.Schema({
   nome: String,
+  ownerEmail: String,
   localizacao: String,
-  status: Boolean
+  isOpen: Boolean,
+  serial_num: String,
+  password: String
 });
 
 module.exports = mongoose.model('Tranca', TrancaSchema);
