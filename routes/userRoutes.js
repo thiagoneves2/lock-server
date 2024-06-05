@@ -1,11 +1,23 @@
 const express = require('express');
 const User = require('../models/User');
+const bodyParser = require('body-parser');
 const router = express.Router();
 
-// Cadastrar usuário
+// CADASTRO
 router.post('/usuarios', async (req, res) => {
-  const user = await User.create(req.body);
-  return res.send({ user });
+
+  console.log(req.body);
+  try {
+      const { nome, email, senha } = req.body; // Dados do corpo da requisição
+      const newUser = new User({ nome, email, senha }); // Crie um novo usuário
+      // Salve o usuário no banco de dados
+      await newUser.save();
+
+      res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
+  } catch (error) {
+      console.error('Erro ao cadastrar usuário:', error);
+      res.status(500).json({ error: 'Erro ao cadastrar usuário' });
+  }
 });
 
 router.get('/', async (req, res) => {
