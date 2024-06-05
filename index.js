@@ -1,13 +1,8 @@
-
-
 // Importa e declara o objeto do express
 const express = require('express');
 require('dotenv').config();
 const app = express();
-// Importa mongoose
 const mongoose = require('mongoose');
-
-
 
 // Arquivos das Rotas
 const userRoutes = require('./routes/userRoutes');
@@ -19,9 +14,10 @@ const PORT = 3000;
 
 const passwd = process.env.password;
 
+app.use(express.json()); // Para analisar o corpo da requisição como JSON
+app.use(express.urlencoded({ extended: true })); // Para dados 
 
 // Conectar ao MongoDB
-
 mongoose.connect(`mongodb+srv://admin:${passwd}@lockdb.ib4sr5m.mongodb.net/?retryWrites=true&w=majority&appName=lockdb`,{
     useNewUrlParser: true,
     useUnifiedTopology: true
