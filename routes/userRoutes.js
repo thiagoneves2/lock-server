@@ -21,7 +21,7 @@ router.post('/usuarios', async (req, res) => {
 
 router.get('/', async (req, res) => {
   console.log("Rota em funcionamento ");
-  return res.send({msg:"Funcionando"});
+  return res.send({msg:"Rota Funcionando"});
 });
 
 // Procurar todos os usuários
@@ -37,8 +37,8 @@ router.get('/usuarios/:id', async (req, res) => {
 });
 
 // Alterar usuário
-router.put('/usuarios/:id', async (req, res) => {
-  const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+router.put('/usuarios/:email', async (req, res) => {
+  const user = await User.findByIdAndUpdate(req.params.email, req.body, {new: true});
   return res.send({ user });
 });
 
