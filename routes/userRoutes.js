@@ -38,9 +38,24 @@ router.get('/usuarios/:id', async (req, res) => {
 
 // Alterar usuário
 router.put('/usuarios/:email', async (req, res) => {
-  const user = await User.findByIdAndUpdate(req.params.email, req.body, {new: true});
-  return res.send({ user });
+  try {
+      const { email } = req.params; // Obtém o email do parâmetro da rota
+      const atualizacao = req.body; // Obtém os dados a serem atualizados do corpo da requisição
+
+      // Atualize o usuário pelo email
+      const user = await User.findOneAndUpdate({ email }, atualizacao, { new: true });
+
+      if (!user) {
+          return res.status(404).json({ error: 'Usuário não encontrado' });
+      }
+
+      return res.json({ user });
+  } catch (error) {
+      console.error('Erro ao atualizar usuário:', error);
+      return res.status(500).json({ error: 'Erro ao atualizar usuário' });
+  }
 });
+
 
 // Excluir usuário
 router.delete('/usuarios/:id', async (req, res) => {
