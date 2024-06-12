@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 // Arquivos das Rotas
 const userRoutes = require('./routes/userRoutes');
 const trancaRoutes = require('./routes/locksRoutes'); 
-//const mqttRoutes = require('./routes/mqttRoutes'); 
+const mqttRoutes = require('./routes/mqttRoutes'); 
 
 // Porta de operação 
 const PORT = 3000;
@@ -26,7 +26,7 @@ mongoose.connect(`mongodb+srv://admin:${passwd}@lockdb.ib4sr5m.mongodb.net/?retr
 
 app.use('/users', userRoutes);
 app.use('/locks', trancaRoutes); // Adicione esta linha
-//app.use('/mqtt', mqttRoutes); // Adicione esta linha
+app.use('/mqtt', mqttRoutes); // Adicione esta linha
 
 // Inicia o servidor
 app.listen(PORT,()=> {

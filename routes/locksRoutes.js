@@ -25,4 +25,10 @@ router.get('/trancas', async (req, res) => {
   return res.send({ trancas });
 });
 
+router.get('/', async (req, res) => {
+  console.log("Rota em funcionamento ");
+  return res.send({msg:"Rota Funcionando"});
+});
+
+
 module.exports = router;

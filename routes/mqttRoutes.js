@@ -1,13 +1,24 @@
 const mqtt = require('mqtt');
-const client  = mqtt.connect('<Endereço do broker>')
+const express = require('express');
+const router = express.Router();
+try{
+  const client  = mqtt.connect('<Endereço do broker>')
+}catch(e)
+{
+  console.log(e);
+}
+
 
 router.post('/mqtt', (req, res) => {
   client.on('connect', () => {
-    client.publish('<tópico a publicar>', 'Hello mqtt')
-    console.log('mensagem enviada')
+    
+    client.subscribe('Tópico');
+
   })
   
-  res.send('Mensagem enviada para o broker MQTT.');
+  client.on('message', function(topic, message){
+    console.log(`Msg ${message} on ${topic}`)
+  })
 });
 
 module.exports = router;
