@@ -3,7 +3,7 @@ const Tranca = require('../models/Tranca');
 const router = express.Router();
 
 
-router.post('/trancas', async (req, res) => {
+router.post('/', async (req, res) => {
 
   console.log(req.body);
   try {
@@ -20,15 +20,28 @@ router.post('/trancas', async (req, res) => {
 });
 
 
-router.get('/trancas', async (req, res) => {
+router.get('/', async (req, res) => {
   const trancas = await Tranca.find();
   return res.send({ trancas });
 });
 
-router.get('/', async (req, res) => {
-  console.log("Rota em funcionamento ");
-  return res.send({msg:"Rota Funcionando"});
-});
+router.put('/:serial_num', async (req, res) => {
+  try {
+      const { serial_num } = req.params; // Obtém o email do parâmetro da rota
+      const atualizacao = req.body; // Obtém os dados a serem atualizados do corpo da requisição
 
+      // Atualize o usuário pelo email
+      const lock = await Tranca.findOneAndUpdate({ serial_num }, atualizacao, { new: true });
+
+      if (!lock) {
+          return res.status(404).json({ error: 'Tranca não encontrada' });
+      }
+
+      return res.json({ lock });
+  } catch (error) {
+      console.error('Erro ao atualizar tranca:', error);
+      return res.status(500).json({ error: 'Erro ao atualizar tranca' });
+  }
+});
 
 module.exports = router;
