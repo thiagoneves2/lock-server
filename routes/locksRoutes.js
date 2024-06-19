@@ -7,8 +7,8 @@ router.post('/', async (req, res) => {
 
   console.log(req.body);
   try {
-      const {nome, ownerEmail ,localizacao, status,serial_num, password} = req.body; 
-      const newTranca = new Tranca({nome,ownerEmail, localizacao, status,serial_num, password}); 
+      const {nome, ownerEmail ,localizacao, isopen, isdooropen ,serial_num, password} = req.body; 
+      const newTranca = new Tranca({nome,ownerEmail, localizacao, isopen, isdooropen ,serial_num, password}); 
 
       await newTranca.save();
 
@@ -19,10 +19,16 @@ router.post('/', async (req, res) => {
   }
 });
 
-
-router.get('/', async (req, res) => {
-  const trancas = await Tranca.find();
-  return res.send({ trancas });
+//Pesquisa por email
+router.get("/search/:ownerEmail", async (req, res) => {
+  const { ownerEmail } = req.params;
+  try {
+    const trancas = await Tranca.find({ ownerEmail });
+    return res.status(200).json(trancas);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Erro ao buscar trancas" });
+  }
 });
 
 router.put('/:serial_num', async (req, res) => {

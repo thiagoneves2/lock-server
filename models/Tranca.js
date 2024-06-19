@@ -5,6 +5,7 @@ const TrancaSchema = new mongoose.Schema({
   ownerEmail: String,
   localizacao: String,
   isOpen: Boolean,
+  isDoorOpen: Boolean,
   serial_num: String,
   password: String
 });
