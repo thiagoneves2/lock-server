@@ -3,7 +3,7 @@ const User = require('../models/User');
 const router = express.Router();
 
 // CADASTRO
-router.post('/usuarios', async (req, res) => {
+router.post('/', async (req, res) => {
 
   console.log(req.body);
   try {
@@ -19,25 +19,15 @@ router.post('/usuarios', async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
-  console.log("Rota em funcionamento ");
-  return res.send({msg:"Rota Funcionando"});
-});
-
 // Procurar todos os usuários
-router.get('/usuarios', async (req, res) => {
+router.get('/', async (req, res) => {
   const users = await User.find();
   return res.send({ users });
 });
 
-// Procurar usuário por ID
-router.get('/usuarios/:id', async (req, res) => {
-  const user = await User.findById(req.params.id);
-  return res.send({ user });
-});
 
 // Alterar usuário
-router.put('/usuarios/:email', async (req, res) => {
+router.put('/:email', async (req, res) => {
   try {
       const { email } = req.params; // Obtém o email do parâmetro da rota
       const atualizacao = req.body; // Obtém os dados a serem atualizados do corpo da requisição
@@ -58,7 +48,7 @@ router.put('/usuarios/:email', async (req, res) => {
 
 
 // Excluir usuário
-router.delete('/usuarios/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   const user = await User.findByIdAndDelete(req.params.id);
   return res.send({ user });
 });
